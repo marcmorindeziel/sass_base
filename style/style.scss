@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+//Import de la font Google
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,300italic);
+
+//Import du reset CSS et des fonctions/mixins
+@import "reset.css";
+@import "function_mixin.scss";
+
+// Création d'une variable
+$turquoise : turquoise;
+
+// Classe générique des boutons
+
+.bouton {
+	width:150px;
+	height:30px;
+	border-radius:7px;
+	margin:20px auto;
+	line-height:30px;
+	text-align:center;
+	cursor:pointer;
+	text-transform:uppercase;
+	letter-spacing: 0.3px;
+	position:relative;
+
+	//l'usager ne peut pas faire de highlight
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+
+	//sass permet d'imbriquer les propriétés comme ceci
+	font:{ style: italic; }
+	//le symbole & réfère à .bouton, donc au sélecteur parent dans l'imbrication 
+	&:active{top:5px;}
+	//on inclue les transitions pour la largeur
+	@include transition(all,100ms,linear)
+}
+
+//appels pour la coloration des boutons
+
+body{ font-family: 'Open Sans Condensed'; }
+
+header{
+	h1{
+
+		color:$turquoise;
+		font-size:25px;
+		//Darken et Lighten sont utilisés pour assombrir ou éclaircir les couleurs.
+		color:darken($turquoise,20);
+		&:hover{ color:darken($turquoise,10); }
+	}
+}
+
+section div.bouton{
+	&:nth-of-type(1){@include button-colors(#16a085)}
+	&:nth-of-type(2){@include button-colors(#2ecc71)}
+	&:nth-of-type(3){@include button-colors(#2c3e50)}
+}
+
+.circle{
+
+	$color : #42B029;
+	@include circle(100px);
+	@include button-colors($color);
+	@include transition(all,100ms,ease);
+	background: linear-gradient(to top, lighten($color,0) 0%, lighten($color,15) 100%);
+	color:white;
+
+	font:{
+		size:15px;
+		family: 'Open Sans';
+		style:italic;
+	}
+
+	line-height:100px;
+	text-align:center;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+
+	margin:50px auto;
+	position:relative;
+	cursor:pointer;
+
+	&:active{top:5px;}
+}
+
+.box{
+
+	$color : #42B029;
+	position:relative;
+	width:150px;
+	margin:0 auto;
+
+	.box_open{
+		position:relative;
+		height:35px;
+		background:#eee;
+		line-height:30px;
+		text-align:center;
+		box-shadow:( inset 2px 2px 7px rgba(0,0,0,0.15));
+		z-index:1;
+	}
+	.box_closed{
+		@include transition(all,200ms,ease);
+		position:relative;
+		top:35px;
+		height:35px;
+		background:$color;
+		line-height:30px;
+		text-align:center;
+		z-index:2;
+		color:white;
+	}
+	&:hover{
+		.box_closed{
+			top:0px;
+			color:$color;
+			-webkit-transform: rotateX(180deg);
+			transform: rotateX(180deg);
+		}
+	}
+
+}
+
+
+
+header,footer{
+	height:auto;
+	padding:20px 0px 20px 0px;
+	background:#eee;
+	width:100%;
+	text-align:center;
+}
+footer{
+	position:absolute;
+	bottom:0px;
+	color:#aaa;
+}
+
+// Médias Queries génériques
+
+@media all and (max-width : 1024px) {}
+@media all and (max-width : 768px) {}
+@media all and (max-width : 680px) {}

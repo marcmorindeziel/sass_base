@@ -1,0 +1,44 @@
+// Fonction qui permet de détemriner si le texte d'un object sera noir ou blanc, selon
+// le contraste de la couleur de background
+
+@function set-text-color($color) {
+	@if (lightness( $color ) > 40) {
+		@return black;
+	}
+	@else {
+		@return white;
+	}
+}
+
+// Gérer les couleurs du bouton avec une seule variable
+
+@mixin button-colors($color) {
+	background:$color;
+	color: set-text-color($color);
+
+	user-select: none;
+	box-shadow:(0px 5px 0px darken($color,20));
+	&:active{
+		box-shadow:(0px 2px 0px darken($color,20));
+	}
+}
+
+// Script pour integrer facilement les animations CSS3
+
+@mixin transition($prop,$time,$ease) {
+    -webkit-transition: $prop $time $ease;
+    -moz-transition: $prop $time $ease;
+    -o-transition: $prop $time $ease;
+    -ms-transition: $prop $time $ease;
+    transition: $prop $time $ease;
+}
+
+@mixin circle($size) {
+	height: $size;
+	width: $size;
+    -webkit-border-radius: $size;
+    -moz-border-radius: $size;
+    -o-border-radius: $size;
+    -ms-border-radius: $size;
+    border-radius: $size;
+}
